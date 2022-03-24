@@ -81,6 +81,7 @@ li {
 
 .content{
   margin-left: calc((100% - 1140px)/2);
+  margin-right: calc((100% - 1140px)/2);
 }
 .faves{
   margin-top: 133px;
@@ -105,21 +106,32 @@ li {
   margin-bottom: 38px;
 }
 
+.cards{
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .card{
   cursor: pointer;
   display: inline-block;
   width: 550px;
   height: 90px;
-  margin-right: 40px;
   margin-bottom: 30px;
-  padding: 0 0 0 26px;
-  /* opacity: 0.8; */
   border-radius: 6px;
   border: solid 1px #cdcdcd;
   background-color: #fff;
 }
 
+.card:hover{
+  opacity: 0.5;
+}
+
+.card.mLeft{
+  margin-left: auto;
+}
+
 .bodyCard{
+  margin-left: 24px;
   display: inline;
   float: left;
 }
@@ -160,11 +172,123 @@ li {
   float: right;
   width: 68px;
   height: 88px;
-  margin: 0 0 0 16px;
+  /* margin: 0 0 0 16px; */
   border-radius: 6px;
   border: solid 1px #f5f5f5;
   background-color: #f5f5f5;
 }
 .likeCard > img{
   margin: 34px 22px;
+}
+
+/* Devices less than 1150 pixels */
+@media (max-width: 1150px) {
+  :root{
+    --margen: calc((100% - 1010px)/2)
+  }
+  .HACKER-NEWS{
+    margin-left: var(--margen);
+  }
+  .content{
+    margin-left: var(--margen);
+    margin-right: var(--margen);
+  }
+  .card {
+    width: 490px;
+  }
+  .story_title {
+    width: 380px;
+  }
+  .likeCard {
+    width: 55px;
+  }
+  .likeCard > img {
+    margin: 34px 16px;
+  }
+}
+
+/* Devices less than 1024 pixels */
+@media (max-width: 1024px) {
+  :root{
+    --margen: calc((100% - 820px)/2)
+  }
+  .card {
+    width: 400px;
+    height: 100px;
+  }
+  .story_title {
+    width: 300px;
+    height: 60px;
+  }
+  .likeCard {
+    height: 98px;
+  }
+  .likeCard > img {
+    margin: 38px 15px;
+  }
+}
+
+/* Devices less than 830 pixels */
+@media (max-width: 830px) {
+  :root{
+    --margen: calc((100% - 570px)/2)
+  }
+  .card {
+    width: 100%;
+  }
+  .story_title {
+    width: 450px;
+  }
+  .likeCard {
+    width: 75px;
+  }
+  .likeCard > img {
+    margin: 38px 27px;
+  }
+}
+
+/* Devices less than 575 pixels */
+@media (max-width: 575px) {
+  :root{
+    --margen: calc((100% - 375px)/2)
+  }
+  .select-news {
+    width: 100%;
+  }
+  .story_title {
+    margin: 6px 0;
+    width: 280px;
+  }
+  .likeCard {
+    width: 67px;
+  }
+  .likeCard > img {
+    margin: 39px 22px;
+  }
+}
+
+/* Devices less than 375 pixels */
+@media (max-width: 375px) {
+  :root{
+    --margen: calc((100% - 320px)/2)
+  }
+  .card {
+    height: 120px;
+  }
+  .story_title {
+    width: 200px;
+  }
+  .likeCard {
+    height: 118px;
+  }
+  .likeCard > img {
+    margin: 49px 23px;
+  }
+}
+
+/* Devices less than 320 pixels */
+@media (max-width: 320px) {
+  :root{
+    --margen: calc((100% - 300px)/2)
+  }
 }

@@ -5,7 +5,7 @@ import Menu from './components/Menu';
 import Faves from './views/Faves';
 import Home from './views/Home';
 
-const App = () => {
+const App = ():JSX.Element => {
 	const [view, setView] = useState<number>(0);
 
 	const HandlerScroll = (evt:any) =>{
@@ -19,7 +19,7 @@ const App = () => {
 	return (
 		<div className='contenido' onScroll={HandlerScroll}>
 			<Header />
-			<Menu setView={setView} />
+			<Menu setView={setView} view={view} />
 			{
 				view === 0 ? <Home/> : <Faves />
 			}

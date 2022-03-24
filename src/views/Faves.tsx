@@ -13,35 +13,34 @@ interface Data2{
 }
 
 
-const Faves = () => {
+const Faves = ():JSX.Element => {
     const data:Data2 = {
         hits:
 		[
-			{author:"author", story_title:"3 hours ago", story_url:"url", created_at:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_title:"3 hours ago", story_url:"url", created_at:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_title:"3 hours ago", story_url:"url", created_at:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_title:"3 hours ago", story_url:"url", created_at:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_title:"3 hours ago", story_url:"url", created_at:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_title:"3 hours ago", story_url:"url", created_at:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_title:"3 hours ago", story_url:"url", created_at:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_title:"3 hours ago", story_url:"url", created_at:"Yes, React is taking over front-end development. The question is why."},
-            {author:"author", story_title:"3 hours ago", story_url:"url", created_at:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_title:"3 hours ago", story_url:"url", created_at:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_title:"3 hours ago", story_url:"url", created_at:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_title:"3 hours ago", story_url:"url", created_at:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_title:"3 hours ago", story_url:"url", created_at:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_title:"3 hours ago", story_url:"url", created_at:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_title:"3 hours ago", story_url:"url", created_at:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_title:"3 hours ago", story_url:"url", created_at:"Yes, React is taking over front-end development. The question is why."},
+			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
+			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
+			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
+			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
+			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
+			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
+			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
+			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
+			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
+			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
+			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
+			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
+			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
+			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
+			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
 		]
     };
     const [hits, setHits] = useState<Data2>(data);
     return(
         <div className='content faves'>
-            <div className='' >
+            <div className='cards' >
                 {
                     hits.hits.map((item:Data, index:number)=>{
-                        return <Card key={index}/>
+                        return <Card key={index} index={index} item={item}/>
                     })
                 }
                 
