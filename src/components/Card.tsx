@@ -1,4 +1,5 @@
 import iconFavorite2 from '../assets/icons/favorite/iconmonstr-favorite-2.png';
+import iconFavorite3 from '../assets/icons/favorite/iconmonstr-favorite-3.png';
 import iconTimer from '../assets/icons/timer/iconmonstr-time-2.png';
 
 interface Item{
@@ -9,14 +10,14 @@ interface Item{
 }
 interface props{
     index:number,
-    item:Item
+    item:Item,
+    addFave:Function,
+    fave:boolean
 }
 
-const Card = ({index,item}:props):JSX.Element => {
+const Card = ({index,item,addFave,fave}:props):JSX.Element => {
 
     const openTab = () => window.open(item.story_url,'_blank')
-
-    const addFave = (item:Item) => console.log(item)
 
     return(
         <div className={`card ${(index+1)%2===0 && 'mLeft'}`}>
@@ -28,7 +29,7 @@ const Card = ({index,item}:props):JSX.Element => {
                 <div className='story_title'>{item.story_title}</div>				
             </div>
             <div className='likeCard' onClick={()=>addFave(item)}>
-                <img src={iconFavorite2} alt="No Fovorite" />
+                <img src={fave ? iconFavorite3:  iconFavorite2} alt="No Fovorite" />
             </div>
         </div>
     )

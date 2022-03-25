@@ -16,7 +16,7 @@ const App = ():JSX.Element => {
 	return (
 		<div className='contenido' onScroll={HandlerScroll}>
 			<Header />
-			<Menu setView={setView} view={view} />
+			<Menu setView={setView} view={view} setPage={setPage} />
 			{
 				view === 0 ? <Home page={page} setPage={setPage} /> : <Faves />
 			}

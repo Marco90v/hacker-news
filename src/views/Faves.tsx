@@ -1,46 +1,40 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Card from '../components/Card';
 
-interface Data{
+interface Item{
 	author: string,
 	story_title: string,
 	story_url: string,
 	created_at: string
 }
 
-interface Data2{
-	hits: Array<Data>
+interface Hits{
+	hits: Array<Item>
 }
 
 
 const Faves = ():JSX.Element => {
-    const data:Data2 = {
-        hits:
-		[
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-		]
-    };
-    const [hits, setHits] = useState<Data2>(data);
+
+    const fave:Item[] = JSON.parse(localStorage.getItem('myFave') || "[]" ) ;
+    const [myFave, setMyFave] = useState<Item[]>(fave);
+
+    useEffect(() => {
+        localStorage.setItem( 'myFave' , JSON.stringify(myFave) );
+      return () => {}
+    }, [myFave])
+
+    const jsonToString = (valor:any):string => JSON.stringify(valor);
+
+    const addFave = (item:Item) =>{
+        const a:string = jsonToString(item);
+        setMyFave( myFave.filter(e=>jsonToString(e)!==a) )
+    }
     return(
         <div className='content faves'>
             <div className='cards' >
                 {
-                    hits.hits.map((item:Data, index:number)=>{
-                        return <Card key={index} index={index} item={item}/>
+                    myFave.map((item:Item, index:number)=>{
+                        return <Card key={index} index={index} item={item} addFave={addFave} fave={true} />
                     })
                 }
                 

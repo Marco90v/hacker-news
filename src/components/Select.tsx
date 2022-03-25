@@ -19,9 +19,9 @@ const Select = ({setQuery,setHits,setPage}:props):JSX.Element => {
 
     const search = (value:string) => {
         const query:string = option[parseInt(value)];
+        localStorage.setItem('search',query);
         setHits();
         setPage(0)
-        localStorage.setItem('search',query);
         setQuery(query);
     }
     return(
