@@ -23,19 +23,29 @@ const Home = ({page,setPage}:props):JSX.Element => {
     const [query, setQuery] = useState<string>();
     const [hits, setHits] = useState<Hits>();
     const [myFave, setMyFave] = useState<Item[]>(fave);
+    const [carga, setCarga] = useState<string>('Loading...');
 
     useEffect(() => {
         const URL:string = `https://hn.algolia.com/api/v1/search_by_date?query=${query}&page=${page}`;
-        query !== undefined &&
+        if(query !== undefined){
+            setCarga('Loading...');
             fetch(URL).then(hits=>hits.json())
                 .then((data:Hits)=>{
-                    const post:Item[] = hits?.hits || [];
-                    data.hits.forEach( ({author,created_at,story_title,story_url}:Item) => {
-                        if (author && created_at && story_title && story_url) post.push({author,created_at,story_title,story_url})
-                    })
-                    setHits({hits:post});
+                    if(data.hits.length>0){
+                        const post:Item[] = hits?.hits || [];
+                        data.hits.forEach( ({author,created_at,story_title,story_url}:Item) => {
+                            if (author && created_at && story_title && story_url) post.push({author,created_at,story_title,story_url})
+                        })
+                        setHits({hits:post});
+                    }else{
+                        setCarga('No more post');
+                    }
                 })
-                .catch( err=>console.log(err) );
+                .catch( err=>{
+                    setCarga('Connection Error'); 
+                    console.log(err);
+                });
+            }
       return () => {}
         
     }, [query,page]);
@@ -69,6 +79,7 @@ const Home = ({page,setPage}:props):JSX.Element => {
                 }
                 
             </div>
+            <span className='Loading'>{carga}</span>
         </div>
     );
 }

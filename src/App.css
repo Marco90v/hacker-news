@@ -181,6 +181,13 @@ li {
   margin: 34px 22px;
 }
 
+.Loading{
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+  font-size: 15px;
+}
+
 /* Devices less than 1150 pixels */
 @media (max-width: 1150px) {
   :root{
