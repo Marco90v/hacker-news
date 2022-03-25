@@ -6,7 +6,10 @@ interface props{
 }
 
 const Menu = ({view,setView,setPage}:props):JSX.Element =>{
+
+    /** Al cambiar la vista se alternan los estados para mostrar las búsquedas correspondientes */
     const changeView = (view:number) =>{
+        /** Page vuelve a 0 ya que se usa scroll infinito, de usar paginación con botones se puede dejar el estado sin modificar */
         setPage(0);
         setView(view)
     }

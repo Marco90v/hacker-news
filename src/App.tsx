@@ -6,13 +6,16 @@ import Faves from './views/Faves';
 import Home from './views/Home';
 
 const App = ():JSX.Element => {
-	const [view, setView] = useState<number>(0);
+	/** Las vista la mantenemos numerica para futura modificaciones donde se añadan mas vistas */
+	const [view, setView] = useState<number>(0); 
     const [page, setPage] = useState<number>(0);
 
+	/** Verifica si nos encontramos al final del scroll e incrementa el estado page */
 	const HandlerScroll = (evt:any) =>{
 		const { scrollTop, clientHeight, scrollHeight }:any = evt.currentTarget;
 		if (scrollHeight - scrollTop === clientHeight) setPage(page+1);
 	}
+
 	return (
 		<div className='contenido' onScroll={HandlerScroll}>
 			<Header />

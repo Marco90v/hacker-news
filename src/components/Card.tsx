@@ -1,13 +1,8 @@
+import { Item } from '../interfaces/baseInterfaces'
 import iconFavorite2 from '../assets/icons/favorite/iconmonstr-favorite-2.png';
 import iconFavorite3 from '../assets/icons/favorite/iconmonstr-favorite-3.png';
 import iconTimer from '../assets/icons/timer/iconmonstr-time-2.png';
 
-interface Item{
-	author: string,
-	story_title: string,
-	story_url: string,
-	created_at: string
-}
 interface props{
     index:number,
     item:Item,
@@ -17,6 +12,7 @@ interface props{
 
 const Card = ({index,item,addFave,fave}:props):JSX.Element => {
 
+    /** AL hace click en la tarjeta, abre una nueva pestaña con la Url que se encuentra en item.story_url */
     const openTab = () => window.open(item.story_url,'_blank')
 
     return(
