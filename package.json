@@ -2,6 +2,10 @@
   "name": "prueba-reign",
   "version": "0.1.0",
   "private": true,
+  "author":"Marco Velasquez Figarella (https://github.com/Marco90v)",
+  "email" : "marcovelasquez90@hotmail.com",
+  "url" : "https://marco90v.github.io/Portafolio/",
+  "description": "Test | Reign Company Challenge",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
