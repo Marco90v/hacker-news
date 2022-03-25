@@ -7,21 +7,18 @@ import Home from './views/Home';
 
 const App = ():JSX.Element => {
 	const [view, setView] = useState<number>(0);
+    const [page, setPage] = useState<number>(0);
 
 	const HandlerScroll = (evt:any) =>{
 		const { scrollTop, clientHeight, scrollHeight }:any = evt.currentTarget;
-        // if (scrollHeight - scrollTop === clientHeight && loading === false && hasMore === true) {
-            if (scrollHeight - scrollTop === clientHeight) {
-            console.log("paginar");
-        }
-        // console.log(scrollTop, clientHeight, scrollHeight);
+		if (scrollHeight - scrollTop === clientHeight) setPage(page+1);
 	}
 	return (
 		<div className='contenido' onScroll={HandlerScroll}>
 			<Header />
 			<Menu setView={setView} view={view} />
 			{
-				view === 0 ? <Home/> : <Faves />
+				view === 0 ? <Home page={page} setPage={setPage} /> : <Faves />
 			}
 		</div>
 	);

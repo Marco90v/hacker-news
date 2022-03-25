@@ -1,48 +1,49 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Card from '../components/Card';
 import Select from '../components/Select';
 
-interface Data{
+interface Item{
 	author: string,
 	story_title: string,
 	story_url: string,
 	created_at: string
 }
-
-
-interface Data2{
-	hits: Array<Data>
+interface Hits{
+	hits: Array<Item>
+}
+interface props{
+    page:number,
+    setPage:Function
 }
 
 
-const Home = ():JSX.Element => {
-    const data:Data2 = {
-        hits:
-		[
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-			{author:"author", story_url:"url", created_at:"3 hours ago", story_title:"Yes, React is taking over front-end development. The question is why."},
-		]
-    };
-    const [hits, setHits] = useState<Data2>(data);
+const Home = ({page,setPage}:props):JSX.Element => {
+    
+    const [query, setQuery] = useState<string>();
+    const [hits, setHits] = useState<Hits>({hits:[]});
+
+    useEffect(() => {
+        const URL:string = `https://hn.algolia.com/api/v1/search_by_date?query=${query}&page=${page}`;
+        query !== undefined &&
+            fetch(URL).then(hits=>hits.json())
+                .then((data:Hits)=>{
+                    const post:Hits = hits || {hits:[]};
+                    data.hits.forEach(({author,created_at,story_title,story_url}:Item)=>{
+                        if (author && created_at && story_title && story_url) post.hits.push({author,created_at,story_title,story_url})
+                    })
+                    setHits(post);
+                })
+                .catch( err=>console.log(err) );
+        
+    }, [query,page,hits]);
+
     return(
         <div className='content' >
-            <Select/>
+            <Select setQuery={setQuery} setHits={setHits} setPage={setPage} />
             <div className='cards' >
                 {
-                    hits.hits.map((item:Data, index:number)=>{
+                    typeof hits !== 'undefined' &&
+                    hits.hits.map((item:Item, index:number)=>{
                         return <Card key={index} index={index} item={item}/>
                     })
                 }
