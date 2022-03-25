@@ -20,7 +20,7 @@ const Home = ({page,setPage}:props):JSX.Element => {
     /** useEffect para petición fetch, al detectar modificaciones a los estados de query(filtro|search) y page(paginación) */
     useEffect(() => {
         const URL:string = `https://hn.algolia.com/api/v1/search_by_date?query=${query}&page=${page}`;
-        if(query !== undefined){
+        if(query){
             setCarga('Loading...');
             fetch(URL).then(hits=>hits.json())
                 .then((data:Hits)=>{
@@ -41,8 +41,8 @@ const Home = ({page,setPage}:props):JSX.Element => {
                 });
             }
       return () => {}
-        
-    }, [query,page]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [query, page]);
 
     /** Useeffect para actualizar local storage cuando de modifique el estado de favoritos */
     useEffect(() => {
@@ -77,7 +77,7 @@ const Home = ({page,setPage}:props):JSX.Element => {
                 }
                 
             </div>
-            <span className='Loading'>{carga}</span>
+            {query && <span className='Loading'>{carga}</span>}
         </div>
     );
 }

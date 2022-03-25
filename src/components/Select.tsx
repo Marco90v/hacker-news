@@ -15,7 +15,7 @@ const Select = ({setQuery,setHits,setPage}:props):JSX.Element => {
     useEffect(() => {
         setQuery(localStorage.getItem('search') || undefined);
       return () => {}
-    }, [])
+    }, [setQuery])
     
     /** Cuando se aplica una búsqueda, se actualiza el localStorage y se los estados pertinentes(hits,page,query) */
     const search = (value:string) => {
