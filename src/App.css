@@ -275,8 +275,12 @@ li {
   .card {
     height: 120px;
   }
+  .bodyCard{
+    width: 220px;
+  }
   .story_title {
     width: 200px;
+    margin-top: 15px;
   }
   .likeCard {
     height: 118px;
@@ -290,5 +294,8 @@ li {
 @media (max-width: 320px) {
   :root{
     --margen: calc((100% - 300px)/2)
+  }
+  .bodyCard{
+    width: 200px;
   }
 }
