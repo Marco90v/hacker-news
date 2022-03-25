@@ -20,32 +20,33 @@ interface props{
 const Home = ({page,setPage}:props):JSX.Element => {
     
     const [query, setQuery] = useState<string>();
-    const [hits, setHits] = useState<Hits>({hits:[]});
+    const [hits, setHits] = useState<Hits>();
 
     useEffect(() => {
         const URL:string = `https://hn.algolia.com/api/v1/search_by_date?query=${query}&page=${page}`;
         query !== undefined &&
             fetch(URL).then(hits=>hits.json())
                 .then((data:Hits)=>{
-                    const post:Hits = hits || {hits:[]};
+                    const post:Item[] = hits?.hits || [];
                     data.hits.forEach(({author,created_at,story_title,story_url}:Item)=>{
-                        if (author && created_at && story_title && story_url) post.hits.push({author,created_at,story_title,story_url})
+                        if (author && created_at && story_title && story_url) post.push({author,created_at,story_title,story_url})
                     })
-                    setHits(post);
+                    setHits({hits:post});
                 })
                 .catch( err=>console.log(err) );
+      return () => {}
         
-    }, [query,page,hits]);
+    }, [query,page]);
 
     return(
         <div className='content' >
             <Select setQuery={setQuery} setHits={setHits} setPage={setPage} />
             <div className='cards' >
                 {
-                    typeof hits !== 'undefined' &&
-                    hits.hits.map((item:Item, index:number)=>{
-                        return <Card key={index} index={index} item={item}/>
-                    })
+                    hits &&
+                    hits.hits.map((item:Item, index:number)=> 
+                        <Card key={index} index={index} item={item}/> 
+                    )
                 }
                 
             </div>

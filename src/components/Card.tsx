@@ -16,6 +16,8 @@ const Card = ({index,item}:props):JSX.Element => {
 
     const openTab = () => window.open(item.story_url,'_blank')
 
+    const addFave = (item:Item) => console.log(item)
+
     return(
         <div className={`card ${(index+1)%2===0 && 'mLeft'}`}>
             <div className='bodyCard' onClick={openTab}>
@@ -25,7 +27,7 @@ const Card = ({index,item}:props):JSX.Element => {
                 </div>
                 <div className='story_title'>{item.story_title}</div>				
             </div>
-            <div className='likeCard'>
+            <div className='likeCard' onClick={()=>addFave(item)}>
                 <img src={iconFavorite2} alt="No Fovorite" />
             </div>
         </div>
