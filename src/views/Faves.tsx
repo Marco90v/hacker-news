@@ -19,7 +19,7 @@ const Faves = ():JSX.Element => {
     const jsonToString = (valor:any):string => JSON.stringify(valor);
 
     /** Se filtra(elimina) el item de myFave */
-    const addFave = (item:Item) =>{
+    const handlerFave = (item:Item) =>{
         const a:string = jsonToString(item);
         setMyFave( myFave.filter(e=>jsonToString(e)!==a) )
     }
@@ -28,7 +28,7 @@ const Faves = ():JSX.Element => {
             <div className='cards' >
                 {
                     myFave.map((item:Item, index:number)=>{
-                        return <Card key={index} index={index} item={item} addFave={addFave} fave={true} />
+                        return <Card key={index} index={index} item={item} handlerFave={handlerFave} fave={true} />
                     })
                 }
                 

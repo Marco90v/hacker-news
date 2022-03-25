@@ -57,7 +57,7 @@ const Home = ({page,setPage}:props):JSX.Element => {
     const validToFave = (value1:string,value2:string):boolean => value1.includes(value2);
 
     /** Si el item existe en el arreglo myFave, lo filtra(elimina) y actualiza el estado myFave, si no existe lo agrega al estado myFave */
-    const addFave = (item:Item) =>{
+    const handlerFave = (item:Item) =>{
         const a:string =jsonToString(myFave);
         const b:string = jsonToString(item);
         validToFave(a,b) ? setMyFave( myFave.filter(e=>jsonToString(e)!==b) ) : setMyFave(e=>[item,...e]);
@@ -72,7 +72,7 @@ const Home = ({page,setPage}:props):JSX.Element => {
                     hits.hits.map((item:Item, index:number)=> {
                         /** Si el post obtenido de la petición, se encuentra en myFave, se declara la variable como true y se pasa al componente Card */
                         const fave:boolean = JSON.stringify(myFave).includes(JSON.stringify(item))
-                        return <Card key={index} index={index} item={item} addFave={addFave} fave={fave} /> 
+                        return <Card key={index} index={index} item={item} handlerFave={handlerFave} fave={fave} /> 
                     })
                 }
                 
