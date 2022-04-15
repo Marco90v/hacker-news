@@ -1,3 +1,44 @@
+# Reto - Reign, Junior Web Developer
+![Captura de resultado](/src/assets/Screenshot_4.png "Captura de Implementación")
+
+#### Solucion Desplegada: https://hacker-news-reign-marco.netlify.app/
+
+### STACK
+Debes utilizar las siguientes tecnologías para construir la app:
++ La última versión de los frameworks: React o Angular
++ HTML/CSS sólo para construir los componentes de la interfaz de usuario
++ Despliegue de la web app en Netlify desde su repositorio Git utilizando el Nuevo Sitio
+desde el flujo de trabajo de Git
+
+### API
+La aplicación web debe solicitar datos a la API pública de Hackers News. El componente selector
+debe utilizar el parámetro de la URL "query" de la API de "búsqueda por fecha".
+API para poder filtrar los posts, por ejemplo:
++ Angular: https://hn.algolia.com/api/v1/search_by_date?query=angular&page=0
++ React: https://hn.algolia.com/api/v1/search_by_date?query=reactjs&page=0
++ Vuejs: https://hn.algolia.com/api/v1/search_by_date?query=vuejs&page=0
+
+La paginación debe implementarse utilizando el parámetro URL "page" de esta API.
+Los atributos a utilizar para la UI del post son author, story_title, story_url, created_at.
+Si alguno de estos atributos no está presente en la respuesta del objeto, el post debe ser
+descartado de los datos.
+
+### FUNCIONALIDAD
++ El filtro seleccionado debe persistir en el almacenamiento local
++ Las publicaciones favoritas deben persistir en el almacenamiento local
++ Se espera que la aplicación web funcione como una aplicación web responsiva
++ Al hacer clic en la fila, debe abrirse una nueva pestaña con el enlace del post
+(story_url)
++ Al hacer clic en el "botón de me gusta" no debería abrirse el enlace de la URL del post
++ Al pasar el ratón por la fila, aplicar opacidad a toda la fila y a sus hijos (textos,
+iconos, botón "me gusta", etc.)
+
+### BONO
++ Implementar pruebas unitarias
++ Buen uso de Typescript
++ Paginación como scroll infinit
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
