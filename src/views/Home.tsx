@@ -57,7 +57,6 @@ const Home = ():JSX.Element => {
                     })
                 }
             </ul>
-            {/* {query && <span className='Loading'>{carga}</span>} */}
             {query && <span className='Loading'>{state.load}</span>}
         </main>
     );

@@ -6,8 +6,7 @@
   "email" : "marcovelasquez90@hotmail.com",
   "url" : "https://marco90v.github.io/Portafolio/",
   "description": "Test | Reign Company Challenge",
-"homepage":"/reign",
-  "devDependencies": {
+  "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.2.1",

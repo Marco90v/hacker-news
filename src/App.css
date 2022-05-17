@@ -5,10 +5,10 @@
   font-weight: normal;
 }
 @font-face {
-font-family: 'Baskerville';
-src: url('fonts/Libre_Baskerville/LibreBaskerville-Regular.ttf') format('truetype');
-font-style: normal;
-font-weight: normal;
+  font-family: 'Baskerville';
+  src: url('fonts/Libre_Baskerville/LibreBaskerville-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal;
 }
 :root{
   --azure:#1797ff;
