@@ -1,84 +1,65 @@
-import { useEffect, useState } from 'react';
-import { Item, Hits} from '../interfaces/baseInterfaces'
+import { useContext, useEffect, useState } from 'react';
+import { Item } from '../interfaces/baseInterfaces'
 import Card from '../components/Card';
 import Select from '../components/Select';
-interface props{
-    page:number,
-    setPage:Function
-}
+import { userContext } from '../App';
 
-const Home = ({page,setPage}:props):JSX.Element => {
-    
-    /** Obtención de favoritos del localStorage, declaración de estados iniciales. */
+const Home = ():JSX.Element => {
+
+    const {state,dispatch} = useContext<any>(userContext);
+    const [totalPage, setTotalPage] = useState<number>(1)
     const fave:Item[] = JSON.parse(localStorage.getItem('myFave') || "[]" ) ;
     const [query, setQuery] = useState<string>();
-    /** Hits se almacena como objeto y no como arreglo, en dado de caso que sea necesario el uso de los datos del mismo nivel de la clave hits, obtenido del api/rest */
-    const [hits, setHits] = useState<Hits>();
-    const [myFave, setMyFave] = useState<Item[]>(fave);
-    const [carga, setCarga] = useState<string>('Loading...');
+    const [hits, setHits] = useState<Item[]>([]);
 
-    /** useEffect para petición fetch, al detectar modificaciones a los estados de query(filtro|search) y page(paginación) */
-    useEffect(() => {
-        const URL:string = `https://hn.algolia.com/api/v1/search_by_date?query=${query}&page=${page}`;
-        if(query){
-            setCarga('Loading...');
-            fetch(URL).then(hits=>hits.json())
-                .then((data:Hits)=>{
-                    /** Si existen datos de retorno, se destructora, se verifica que los campos necesarios no sean nulos y se almacenan en un nuevo arreglo definido como post. */
-                    if(data.hits.length>0){
-                        const post:Item[] = hits?.hits || [];
-                        data.hits.forEach( ({author,created_at,story_title,story_url}:Item) => {
-                            if (author && created_at && story_title && story_url) post.push({author,created_at,story_title,story_url})
-                        })
-                        setHits({hits:post});
-                    }else{
-                        setCarga('No more post');
-                    }
-                })
-                .catch( err=>{
-                    setCarga('Connection Error'); 
-                    console.log(err);
-                });
-            }
-      return () => {}
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [query, page]);
+    /**
+     * getData - 
+     * Verifica si la paguina actual es menor al total de las paguinas,
+     * realiza la petición al API, procesa los datos recuperados y cambia el esta hits,
+     * asi mismo el estado de carga.
+     * @async function
+     * @return void
+     */
+    const getData = async () => {
 
-    /** Useeffect para actualizar local storage cuando de modifique el estado de favoritos */
-    useEffect(() => {
-        localStorage.setItem( 'myFave' , JSON.stringify(myFave) );
-      return () => {}
-    }, [myFave])
-    
-    /** Convierte un valor JSON en string */
-    const jsonToString = (valor:any):string => JSON.stringify(valor);
+        if(state.page < totalPage){
+            dispatch({type:"carga"});
+            const URL:string = `https://hn.algolia.com/api/v1/search_by_date?query=${query}&page=${state.page}`;
+            const data = await fetch(URL).then(i=>i.json());
+            if(totalPage === 1) setTotalPage(data.nbPages-1);
+            const post:Item[] = [];
+            data.hits.forEach(({author,created_at,story_title,story_url,objectID}:Item) => {
+                const myFave:boolean = fave.find(e=>e.objectID===objectID)?.fave || false;
+                if (author && created_at && story_title && story_url) post.push({author,created_at,story_title,story_url,objectID,fave:myFave});
+            });
+            setHits([...hits , ...post]);
+            dispatch({type:"complete"});
+        }else{
+            dispatch({type:"noMore"});
+        }
 
-    /** Valida que el contenido de una cadena exista en otra cadena */
-    const validToFave = (value1:string,value2:string):boolean => value1.includes(value2);
-
-    /** Si el item existe en el arreglo myFave, lo filtra(elimina) y actualiza el estado myFave, si no existe lo agrega al estado myFave */
-    const handlerFave = (item:Item) =>{
-        const a:string =jsonToString(myFave);
-        const b:string = jsonToString(item);
-        validToFave(a,b) ? setMyFave( myFave.filter(e=>jsonToString(e)!==b) ) : setMyFave(e=>[item,...e]);
     }
 
+    /** useEffect detecta modificaciones a los estados de query(filtro|search) y page(paginación) y llama a la funcion getData() */
+    useEffect(() => {
+        query && getData();
+      return () => {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [query, state.page]);
+    
     return(
-        <div className='content' >
-            <Select setQuery={setQuery} setHits={setHits} setPage={setPage} />
-            <div className='cards' >
+        <main className='content' >
+            <Select setQuery={setQuery} setHits={setHits} />
+            <ul className='cards' >
                 {
-                    hits &&
-                    hits.hits.map((item:Item, index:number)=> {
-                        /** Si el post obtenido de la petición, se encuentra en myFave, se declara la variable como true y se pasa al componente Card */
-                        const fave:boolean = JSON.stringify(myFave).includes(JSON.stringify(item))
-                        return <Card key={index} index={index} item={item} handlerFave={handlerFave} fave={fave} /> 
+                    hits.map((item:Item, index:number)=> {
+                        return <Card key={item.objectID} item={item} setHits={setHits} /> 
                     })
                 }
-                
-            </div>
-            {query && <span className='Loading'>{carga}</span>}
-        </div>
+            </ul>
+            {/* {query && <span className='Loading'>{carga}</span>} */}
+            {query && <span className='Loading'>{state.load}</span>}
+        </main>
     );
 }
 
