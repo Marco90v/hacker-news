@@ -16,7 +16,7 @@ const Menu = ():JSX.Element =>{
         <nav className='menu'>
             <ul>
                 <li className={`btn-menu btn-menu-ALL ${state.view && 'btn-menu-active'}` } onClick={()=>changeView()} >All</li>
-                <li className={`btn-menu btn-menu-FAVES ${state.view && 'btn-menu-active'}`} onClick={()=>changeView()} >My faves</li>
+                <li className={`btn-menu btn-menu-FAVES ${!state.view && 'btn-menu-active'}`} onClick={()=>changeView()} >My faves</li>
             </ul>
         </nav>
     );

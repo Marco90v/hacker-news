@@ -10,7 +10,7 @@ const Faves = ():JSX.Element => {
     const [myFave, setMyFave] = useState<Item[]>(fave);
 
     return(
-        <div className='content faves'>
+        <main className='content faves'>
             <div className='cards' >
                 {
                     myFave.map((item:Item)=>{
@@ -19,7 +19,7 @@ const Faves = ():JSX.Element => {
                 }
                 
             </div>
-        </div>
+        </main>
     )
 }
 

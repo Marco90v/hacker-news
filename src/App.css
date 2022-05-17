@@ -1,35 +1,43 @@
-
 @font-face {
   font-family: 'Roboto';
   src: url('fonts/Roboto/Roboto-Medium.ttf') format('truetype');
   font-style: normal;
   font-weight: normal;
 }
-/* @font-face {
-  font-family: 'Baskerville';
-  src: url('fonts/Libre_Baskerville/LibreBaskerville-Regular.ttf') format('truetype');
-  font-style: normal;
-  font-weight: normal;
-} */
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Roboto;
+@font-face {
+font-family: 'Baskerville';
+src: url('fonts/Libre_Baskerville/LibreBaskerville-Regular.ttf') format('truetype');
+font-style: normal;
+font-weight: normal;
 }
 :root{
   --azure:#1797ff;
   --brownish-grey: #606060;
 }
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Roboto;
+  font-size: 18px;
+}
+.contenido{
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 100vh;
+  min-height: 100vh;
+}
 .header {
+  position: relative;
   height: 114px;
   box-shadow: 0 1px 4px 0 rgba(0, 21, 41, 0.12);
   background-image: linear-gradient(to bottom, #ececec -32%, #fff 124%);
 }
-
 .HACKER-NEWS{
-  margin-left: calc((100% - 1140px)/2);
-  padding-top: 44px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
   object-fit: contain;
   font-family: Baskerville;
   font-size: 28px;
@@ -41,19 +49,17 @@
   color: #3b3b3b;
 }
 .menu{
-  margin-top: 70px;
+  margin-top: 4rem;
   display: flex;
   justify-content: center;
 }
-li {
+.menu > ul > li {
   cursor: pointer;
   text-decoration: none;
   display: inline;
   margin: auto;
 }
 .btn-menu {
-  width: 98px;
-  height: 31px;
   border-radius: 2px;
   border: solid 1px #d6d6d6;
   
@@ -66,7 +72,6 @@ li {
   text-align: center;
   color: var(--brownish-grey);
 }
-
 .btn-menu-ALL{
   padding: 5px 39px;
 }
@@ -74,31 +79,25 @@ li {
 .btn-menu-FAVES{
   padding: 5px 16px;
 }
-
-.btn-menu-active{
+.btn-menu-ALL.btn-menu-active, .btn-menu-FAVES.btn-menu-active{
   border-color: var(--azure);
   color: var(--azure);
 }
-
-.content{
-  margin-left: calc((100% - 1140px)/2);
-  margin-right: calc((100% - 1140px)/2);
+main.content{
+  display: flex;
+  max-width: 90%;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
 }
-.faves{
+main.faves{
   margin-top: 133px;
 }
-
-.contenido{
-  overflow-y: scroll;
-  overflow-x: hidden;
-  max-height: 100vh;
-  min-height: 100vh;
+main.content > ul {
+  list-style: none;
 }
-
 .select-news{
   display: block;
-  width: 240px;
-  height: 32px;
   padding: 5px 12px 5px 12px;
   border-radius: 4px;
   border: solid 1px #2e2e2e;
@@ -106,43 +105,36 @@ li {
   margin-top: 63px;
   margin-bottom: 38px;
 }
-
 .cards{
   display: flex;
   flex-wrap: wrap;
+  gap: 2.2rem;
 }
-
 .card{
   cursor: pointer;
   display: inline-block;
-  width: 550px;
-  height: 90px;
-  margin-bottom: 30px;
+  width: 100%;
+  min-width: 337px;
+  min-height: 90px;
   border-radius: 6px;
   border: solid 1px #cdcdcd;
   background-color: #fff;
+  display: grid;
+  grid-template-columns: auto 68px;
+  transition: all .2s ease-in-out;
 }
-
 .card:hover{
   opacity: 0.5;
 }
-
-.card.mLeft{
-  margin-left: auto;
-}
-
-.bodyCard{
-  margin-left: 24px;
-  display: inline;
-  float: left;
-}
-
-.date{
-  height: 13px;
-  padding-top: 16px;
+.bodyCard {
+  margin-left: 5%;
   display: flex;
-  align-items: center;
-  font-size: 11px;
+  flex-direction: column;
+  justify-content: center;
+  gap: .5rem;
+}
+.date{
+  display: flex;  
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -150,159 +142,46 @@ li {
   letter-spacing: normal;
   color: #767676;
 }
-
 .date > img{
   margin-right: 5px;
 }
-
+.date > span {
+  font-size: 11px;
+}
 .story_title{
-  width: 440px;
-  height: 40px;
-  margin: 6px 16px 14px 0;
   font-size: 14px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1.43;
   letter-spacing: 0.25px;
   color: #6b6b6b;
 }
-
 .likeCard{
+  position: relative;
   cursor: pointer;
-  float: right;
-  width: 68px;
-  height: 88px;
   border-radius: 0 6px 6px 0;
-  border: solid 1px #f5f5f5;
   background-color: #f5f5f5;
 }
 .likeCard > img{
-  margin: 34px 22px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
 
-.Loading{
-  display: flex;
-  justify-content: center;
-  margin: 30px 0;
-  font-size: 15px;
-}
-
-/* Devices less than 1150 pixels */
-@media (max-width: 1150px) {
-  :root{
-    --margen: calc((100% - 1010px)/2)
-  }
+@media (min-width:1100px) {
   .HACKER-NEWS{
-    margin-left: var(--margen);
+      position: initial;
+      transform: initial;
+      width: 1140px;
+      margin: auto;
+      padding-top: 44px;
   }
-  .content{
-    margin-left: var(--margen);
-    margin-right: var(--margen);
+  main.content{
+      width: 1140px;
   }
-  .card {
-    width: 490px;
+  .select-news{
+      width: 240px;
   }
-  .story_title {
-    width: 380px;
-  }
-  .likeCard {
-    width: 55px;
-  }
-  .likeCard > img {
-    margin: 34px 16px;
-  }
-}
-
-/* Devices less than 1024 pixels */
-@media (max-width: 1024px) {
-  :root{
-    --margen: calc((100% - 820px)/2)
-  }
-  .card {
-    width: 400px;
-    height: 100px;
-  }
-  .story_title {
-    width: 300px;
-    height: 60px;
-  }
-  .likeCard {
-    height: 98px;
-  }
-  .likeCard > img {
-    margin: 38px 15px;
-  }
-}
-
-/* Devices less than 830 pixels */
-@media (max-width: 830px) {
-  :root{
-    --margen: calc((100% - 570px)/2)
-  }
-  .card {
-    width: 100%;
-  }
-  .story_title {
-    width: 450px;
-  }
-  .likeCard {
-    width: 75px;
-  }
-  .likeCard > img {
-    margin: 38px 27px;
-  }
-}
-
-/* Devices less than 575 pixels */
-@media (max-width: 575px) {
-  :root{
-    --margen: calc((100% - 375px)/2)
-  }
-  .select-news {
-    width: 100%;
-  }
-  .story_title {
-    margin: 6px 0;
-    width: 280px;
-  }
-  .likeCard {
-    width: 67px;
-  }
-  .likeCard > img {
-    margin: 39px 22px;
-  }
-}
-
-/* Devices less than 375 pixels */
-@media (max-width: 375px) {
-  :root{
-    --margen: calc((100% - 320px)/2)
-  }
-  .card {
-    height: 120px;
-  }
-  .bodyCard{
-    width: 220px;
-  }
-  .story_title {
-    width: 200px;
-    margin-top: 15px;
-  }
-  .likeCard {
-    height: 118px;
-  }
-  .likeCard > img {
-    margin: 49px 23px;
-  }
-}
-
-/* Devices less than 320 pixels */
-@media (max-width: 320px) {
-  :root{
-    --margen: calc((100% - 300px)/2)
-  }
-  .bodyCard{
-    width: 200px;
+  .card{
+      max-width: 48%;
   }
 }
