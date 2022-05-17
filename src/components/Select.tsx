@@ -1,13 +1,15 @@
-import { useEffect } from "react";
-
+import { useContext, useEffect } from "react";
+import { userContext } from "../App";
 interface props{
     setQuery:Function,
     setHits:Function,
-    setPage:Function
+    setPage?:Function
 }
 
-const Select = ({setQuery,setHits,setPage}:props):JSX.Element => {
-    
+const Select = ({setQuery,setHits}:props):JSX.Element => {
+
+    const {dispatch} = useContext<any>(userContext);
+
     const option:string[] = ['Select your news','Angular','React','Vuejs'];
     const filtro:number = option.indexOf( localStorage.getItem('search') || 'Select your news');
     
@@ -15,17 +17,22 @@ const Select = ({setQuery,setHits,setPage}:props):JSX.Element => {
     useEffect(() => {
         setQuery(localStorage.getItem('search') || undefined);
       return () => {}
-    }, [setQuery])
+    }, [setQuery]);
     
-    /** Cuando se aplica una búsqueda, se actualiza el localStorage y se los estados pertinentes(hits,page,query) */
+    /** 
+     * Cuando se aplica una búsqueda, se actualiza el localStorage y se los estados pertinentes(hits,page,query) 
+     * @function
+     * @returns void
+     * */
     const search = (value:string) => {
         const query:string = option[parseInt(value)];
         localStorage.setItem('search',query);
-        setHits();
+        setHits([]);
         /** Page vuelve a 0 porque se cambia de búsqueda (Angular, React, Vuejs) */
-        setPage(0)
+        dispatch({type:"resetPage"})
         setQuery(query);
     }
+    
     return(
         <select className='select-news' id="news" defaultValue={filtro.toString()} onChange={e=>search(e.target.value)}>
             {

@@ -1,25 +1,24 @@
+import { useContext } from "react";
+import { userContext } from "../App";
 
-interface props{
-    view:number,
-    setView:Function,
-    setPage:Function
-}
+const Menu = ():JSX.Element =>{
+    const {state,dispatch} = useContext<any>(userContext);
 
-const Menu = ({view,setView,setPage}:props):JSX.Element =>{
-
-    /** Al cambiar la vista se alternan los estados para mostrar las búsquedas correspondientes */
-    const changeView = (view:number) =>{
-        /** Page vuelve a 0 ya que se usa scroll infinito, de usar paginación con botones se puede dejar el estado sin modificar */
-        setPage(0);
-        setView(view)
+    /** changeView Reinicia page a 0 (Cero) y cambia la vista (true | false)
+     * @function
+     * @return void
+     */
+    const changeView = () =>{
+        dispatch({type:"resetPage"});
+        dispatch({type:"changeView"});
     }
     return(
-        <div className='menu'>
+        <nav className='menu'>
             <ul>
-                <li className={`btn-menu btn-menu-ALL ${view === 0 && 'btn-menu-active'}` } onClick={()=>changeView(0)} >All</li>
-                <li className={`btn-menu btn-menu-FAVES ${view === 1 && 'btn-menu-active'}`} onClick={()=>changeView(1)} >My faves</li>
+                <li className={`btn-menu btn-menu-ALL ${state.view && 'btn-menu-active'}` } onClick={()=>changeView()} >All</li>
+                <li className={`btn-menu btn-menu-FAVES ${!state.view && 'btn-menu-active'}`} onClick={()=>changeView()} >My faves</li>
             </ul>
-        </div>
+        </nav>
     );
 }
 

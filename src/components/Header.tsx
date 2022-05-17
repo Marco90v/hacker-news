@@ -1,9 +1,9 @@
 
 const Header = ():JSX.Element => {
 	return(
-		<div className="header">
+		<header className="header">
 			<h1 className='HACKER-NEWS'>HACKER NEWS</h1>
-		</div>
+		</header>
 	);
 }
 
