@@ -9,8 +9,41 @@ interface props{
     setHits:Function
 }
 
+/**
+ * timeElapsed - 
+ * Calcula el tiempo transcurido desde la fecha de publicacion del post hasta la fecha actual.
+ * @param {string} timeCreate - Fecha de Creación en formato string
+ * @returns {string} - Regresa una cadena ejemplo (1 Dia)
+ */
+const timeElapsed = (timeCreate:string) =>{
+    const day1 = new Date(timeCreate).getTime();
+    const day2 = new Date().getTime();
+    let t = (day2 - day1) / 1000; // Convierte Milisegundos a }Segundos
+    if(t >= 60){
+        t = t / 60; // Convierte de Segundos a Minutos
+        if(t >= 60){
+            t = t / 60; // Convierte de Minutos a Horas
+            if(t >= 24){
+                t = t / 24; // Convierte de Horas a Dias
+                if(t > 1){
+                    return `${t.toFixed()} Dias`;
+                }else{
+                    return `${t.toFixed()} Dia`;
+                }
+            }else{
+                return `${t.toFixed()} Horas`;
+            }
+        }else{
+            return `${t.toFixed()} Minutos`;
+        }
+    }else{
+        return `${t.toFixed()} Segundos`;
+    }
+}
+
 
 const Card = ({item,setHits}:props):JSX.Element => {
+
     /** openTab -
      * Abre una nueva pestaña con la Url que se encuentra en item.story_url
      * @retun void
@@ -47,7 +80,7 @@ const Card = ({item,setHits}:props):JSX.Element => {
             <div className='bodyCard' onClick={openTab}>
                 <div className='date'>
                     <img src={iconTimer} alt="timer" />
-                    <span>{item.created_at} by {item.author}</span>
+                    <span>{timeElapsed(item.created_at)} ago by {item.author}</span>
                 </div>
                 <div className='story_title'>{item.story_title}</div>				
             </div>
